@@ -58,21 +58,27 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
+			<!-- từ version 3 trở lên code theo bên dưới  -->
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 		</dependency>
 
 		<!-- security -->
+
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
 
 		<!-- JSP  view engerr -->
+		<!-- tomcat-embed-jasper: Cung cấp Jasper để biên dịch và xử lý JSP trên Tomcat embedded.
+		jakarta.servlet.jsp.jstl-api: Cung cấp API cho các thẻ JSTL (chỉ là định nghĩa, không có mã thực hiện).
+		jakarta.servlet.jsp.jstl (org.glassfish.web): Implementation của JSTL, cho phép bạn sử dụng các thẻ JSTL trong JSP. -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
@@ -81,6 +87,7 @@
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
+
 
 
 		<dependency>
