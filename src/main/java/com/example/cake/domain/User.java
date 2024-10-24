@@ -6,7 +6,6 @@ public class User {
     public String password;
     public String fullName;
     public String address;
-    public String phone;
 
     public long getId() {
         return id;
@@ -48,18 +47,20 @@ public class User {
         this.address = address;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
+
+    public String phoneNumber;
 
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
-                + ", address=" + address + ", phone=" + phone + "]";
+                + ", address=" + address + ", phone=" + phoneNumber + "]";
     }
 
 }
