@@ -1,6 +1,12 @@
 package com.example.cake.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+// biến class thành table trong csdl
+@Entity
 public class User {
+    @Id
     public long id;
     public String email;
     public String password;
