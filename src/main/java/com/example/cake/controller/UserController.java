@@ -4,9 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.*;
 import com.example.cake.domain.User;
+import com.example.cake.repository.UserRepository;
+import com.example.cake.service.UserService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,14 +18,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
+	public final UserService userService;
+
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
+
 	@GetMapping("/")
 	public String index() {
 		return "index";
 	}
 
-	// lấy trang user
 	@RequestMapping("/admin/user")
 	public String getUsePage(Model model) {
+		List<User> users = userService.getAllUsers();
+		model.addAttribute("Users", users);
+		return "admin/user/table-user";
+	}
+
+	@RequestMapping("/admin/user/{id}")
+	public String getUserDetailPage(Model model, @PathVariable long id) {
+		model.addAttribute("id", id);
+		Optional<User> user = userService.getUserById(id);
+		if (user.isPresent()) {
+			model.addAttribute("user", user);
+		}
+		return "admin/user/show";
+	}
+
+	// lấy trang user
+	@RequestMapping("/admin/user/create")
+	public String getCreateUsePage(Model model) {
 		model.addAttribute("newUser", new User());
 		// là cách Spring MVC cho phép
 		// bạn thêm một đối tượng vào model. Model này sau đó sẽ được gửi tới view
@@ -35,9 +62,10 @@ public class UserController {
 		return "admin/user/create";
 	}
 
-	@RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
 	public String createUser(Model model, @ModelAttribute("newUser") User newUser) {
 		System.out.println(newUser);
-		return "index";
+		userService.handleSaveUser(newUser);
+		return "redirect:/admin/user";
 	}
 }

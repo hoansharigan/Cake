@@ -1,12 +1,16 @@
 package com.example.cake.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 // biến class thành table trong csdl
 @Entity
 public class User {
+    // cho id tự động tăng
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
     public String email;
     public String password;

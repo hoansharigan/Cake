@@ -24,7 +24,7 @@
                 <div class="container">
                     <div class="row ">
                         <div class="col-6 m-auto">
-                            <form:form class="mt-5" method="post" action="/admin/user/create1" modelAttribute="newUser">
+                            <form:form class="mt-5" method="post" action="/admin/user/create" modelAttribute="newUser">
                                 <h2 class="border-bottom">Create User</h2>
                                 <div class="mb-3 col-12">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -49,7 +49,9 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary w-25 text-center">Create</button>
+                                    <button type="submit" class="btn btn-primary w-25 text-center">
+                                        Create
+                                    </button>
                                 </div>
                             </form:form>
                         </div>
