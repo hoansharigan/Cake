@@ -39,10 +39,8 @@ public class UserController {
 	@RequestMapping("/admin/user/{id}")
 	public String getUserDetailPage(Model model, @PathVariable long id) {
 		model.addAttribute("id", id);
-		Optional<User> user = userService.getUserById(id);
-		if (user.isPresent()) {
-			model.addAttribute("user", user);
-		}
+		User user = userService.getUserById(id);
+		model.addAttribute("user", user);
 		return "admin/user/show";
 	}
 
@@ -68,4 +66,37 @@ public class UserController {
 		userService.handleSaveUser(newUser);
 		return "redirect:/admin/user";
 	}
+
+	@RequestMapping("/admin/user/update/{id}")
+	public String getUpdateUsePage(Model model, @PathVariable long id) {
+		User currentUser = userService.getUserById(id);
+		model.addAttribute("newUser", currentUser);
+		return "admin/user/update";
+	}
+
+	@RequestMapping(value = "/admin/user/update", method = RequestMethod.POST)
+	public String updateUser(Model model, @ModelAttribute("newUser") User newUser) {
+		User currentUser = userService.getUserById(newUser.getId());
+		currentUser.setAddress(newUser.getAddress());
+		currentUser.setPhoneNumber(newUser.getPhoneNumber());
+		currentUser.setFullName(newUser.getFullName());
+		userService.handleSaveUser(currentUser);
+		return "redirect:/admin/user";
+	}
+
+	@RequestMapping("/admin/user/delete/{id}")
+	public String getDeleteUsePage(Model model, @ModelAttribute("newUser") User newUser, @PathVariable long id) {
+		User user = new User();
+		user.setId(id);
+		model.addAttribute("newUser", user);
+		
+		return "admin/user/delete";
+	}
+
+	@RequestMapping(value = "/admin/user/delete", method = RequestMethod.POST)
+	public String deleteUser(Model model, @ModelAttribute("newUser") User newUser) {
+		userService.deleteUserById(newUser.getId());
+		return "redirect:/admin/user";
+	}
+
 }

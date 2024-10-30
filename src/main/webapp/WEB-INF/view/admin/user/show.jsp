@@ -27,17 +27,26 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            User information
+                    <div class="col-12">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-header">
+                                User information
+                            </div>
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item"> address : ${user.email}</li>
+                                <li class="list-group-item"> phone : ${user.password}</li>
+                                <li class="list-group-item"> full name : ${user.fullName}</li>
+                                <li class="list-group-item"> password : ${user.address}</li>
+                            </ul>
                         </div>
-                        <!-- <ul class="list-group list-group-flush">
-                            <li class="list-group-item">${user.id}</li>
-                            <li class="list-group-item"> ${user.email}</li>
-                            <li class="list-group-item"> ${user.fullName}</li>
-                            <li class="list-group-item"> ${user.address}</li>
-                        </ul> -->
+                        <div class="w-25 mt-2">
+                            <a class="btn btn-success" href="/admin/user">
+                                back
+                            </a>
+                        </div>
                     </div>
+
                 </div>
             </div>
 
