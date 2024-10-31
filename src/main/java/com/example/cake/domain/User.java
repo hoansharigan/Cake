@@ -17,6 +17,16 @@ public class User {
     public String fullName;
     public String address;
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String avatar;
+
     public long getId() {
         return id;
     }
@@ -70,7 +80,7 @@ public class User {
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
-                + ", address=" + address + ", phone=" + phoneNumber + "]";
+                + ", address=" + address + ", avatar=" + avatar + ", phoneNumber=" + phoneNumber + "]";
     }
 
 }
