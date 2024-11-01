@@ -1,12 +1,19 @@
 package com.example.cake.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 // biến class thành table trong csdl
 @Entity
+@Table(name = "users")
 public class User {
     // cho id tự động tăng
     @Id
@@ -16,6 +23,17 @@ public class User {
     public String password;
     public String fullName;
     public String address;
+    public String avatar;
+
+    // role id
+    // User nhiều user có 1 role
+    @ManyToOne
+    // tạo thêm 1 cột trong bảng User có tên là user_id và lưu role ở đây
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @OneToMany(mappedBy = "user")
+    List<Order> orders;
 
     public String getAvatar() {
         return avatar;
@@ -24,8 +42,6 @@ public class User {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
-
-    public String avatar;
 
     public long getId() {
         return id;
