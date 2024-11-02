@@ -29,27 +29,35 @@
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item active">Dashboard</li>
                                 </ol>
-                                <div class="container">
-                                    <div class="row ">
-                                        <div class="col-6 m-auto">
-                                            <form:form class="mt-5" method="post" action="/admin/user/delete"
-                                                modelAttribute="newUser">
-                                                <h2 class="border-bottom">Delete User</h2>
-                                                <div class="mb-3 col-12">
-                                                    <label for="exampleInputPassword1" class="form-label">Id</label>
-                                                    <form:input path="id" type="text" class="form-control"
-                                                        value="${newUser.id}" />
-                                                </div>
-                                                <div class="text-center">
-                                                    <button type="submit" class="btn btn-danger w-25 text-center">
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </form:form>
+                                <div class="container my-5">
+                                    <div class="row my-4 pb-3 border-bottom">
+                                        <div class="col-12 d-flex justify-content-between ">
+                                            <h2 class="inline-block">User Detail with ${id}</h2>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card" style="width: 18rem;">
+                                                <div class="card-header">
+                                                    User information
+                                                </div>
+                                                <ul class="list-group list-group-flush">
 
+                                                    <li class="list-group-item"> address : ${user.email}</li>
+                                                    <li class="list-group-item"> phone : ${user.password}</li>
+                                                    <li class="list-group-item"> full name : ${user.fullName}</li>
+                                                    <li class="list-group-item"> password : ${user.address}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="w-25 mt-2">
+                                                <a class="btn btn-success" href="/admin/user">
+                                                    back
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </main>
                         <jsp:include page="../layout/footer.jsp" />

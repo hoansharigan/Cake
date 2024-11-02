@@ -1,4 +1,4 @@
-package com.example.cake.controller;
+package com.example.cake.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +33,7 @@ public class UserController {
 	public String getUsePage(Model model) {
 		List<User> users = userService.getAllUsers();
 		model.addAttribute("Users", users);
-		return "admin/user/table-user";
+		return "admin/user/show";
 	}
 
 	@RequestMapping("/admin/user/{id}")
@@ -41,7 +41,7 @@ public class UserController {
 		model.addAttribute("id", id);
 		User user = userService.getUserById(id);
 		model.addAttribute("user", user);
-		return "admin/user/show";
+		return "admin/user/detail";
 	}
 
 	// lấy trang user
@@ -89,7 +89,7 @@ public class UserController {
 		User user = new User();
 		user.setId(id);
 		model.addAttribute("newUser", user);
-		
+
 		return "admin/user/delete";
 	}
 
