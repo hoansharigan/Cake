@@ -2,26 +2,23 @@ package com.example.cake.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import com.example.cake.domain.User;
-import com.example.cake.repository.UserRepository;
+import com.example.cake.service.UpLoadFileService;
 import com.example.cake.service.UserService;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController {
 	public final UserService userService;
+	private final UpLoadFileService upLoadFileService;
 
-	public UserController(UserService userService) {
+	public UserController(UserService userService, UpLoadFileService upLoadFileService) {
 		this.userService = userService;
+		this.upLoadFileService = upLoadFileService;
 	}
 
 	@GetMapping("/")
@@ -60,10 +57,14 @@ public class UserController {
 		return "admin/user/create";
 	}
 
-	@RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-	public String createUser(Model model, @ModelAttribute("newUser") User newUser) {
-		System.out.println(newUser);
-		userService.handleSaveUser(newUser);
+	@PostMapping(value = "/admin/user/create")
+	public String createUser(Model model,
+			@ModelAttribute("newUser") User newUser,
+			@RequestParam("hoidanitFile") MultipartFile file) {
+		String avatar = this.upLoadFileService.handlSaveUploadFile(file, "avatar");
+		// đoạn code dùng để lưu file ảnh
+
+		// userService.handleSaveUser(newUser);
 		return "redirect:/admin/user";
 	}
 
