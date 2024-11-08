@@ -33,52 +33,50 @@
                                     <div class="row ">
                                         <div class="col-6 m-auto">
                                             <form:form class="" method="post" action="/admin/user/update"
-                                                modelAttribute="newUser">
+                                                modelAttribute="newUser" enctype="multipart/form-data">
                                                 <h2 class="border-bottom mb-4 pb-3">Update User</h2>
                                                 <div class="row">
+                                                    <div class="mb-3" style="display: none;">
+                                                        <label class="form-label">Id:</label>
+                                                        <form:input type="text" class="form-control" path="id" />
+                                                    </div>
                                                     <div class="col-6 mb-3 mb-3">
                                                         <label for="exampleInputEmail1" class="form-label">Email
                                                             address</label>
                                                         <form:input path="email" type="email" class="form-control"
                                                             aria-describedby="emailHelp" />
                                                     </div>
-                                                    <div class="col-6 mb-3 mb-3">
-                                                        <label for="exampleInputPassword1"
-                                                            class="form-label">Password</label>
-                                                        <form:input path="password" type="password"
-                                                            class="form-control" />
-                                                    </div>
+
                                                     <div class="mb-3 col-6 mb-3">
                                                         <label for="exampleInputPassword1" class="form-label">Phone
                                                             number</label>
-                                                        <form:input path="phoneNumber" type="password"
+                                                        <form:input path="phoneNumber" type="text"
                                                             class="form-control" />
                                                     </div>
                                                     <div class="mb-3 col-6 mb-3">
                                                         <label for="exampleInputPassword1" class="form-label">Full
                                                             Name</label>
-                                                        <form:input path="fullName" type="password"
-                                                            class="form-control" />
+                                                        <form:input path="fullName" type="text" class="form-control" />
                                                     </div>
                                                     <div class="mb-3 col-12 mb-3">
                                                         <label for="exampleInputPassword1"
                                                             class="form-label">Address</label>
-                                                        <form:input path="address" type="password"
-                                                            class="form-control" />
+                                                        <form:input path="address" type="text" class="form-control" />
                                                     </div>
-                                                    <div class="col-6 mb-3 mb-3">
-                                                        <label for="">Role : </label>
-                                                        <select class="form-select form-select-sm"
+                                                    <div class="col-6 mb-3">
+                                                        <label for="">Role:</label>
+                                                        <form:select path="role.name" class="form-select form-select-sm"
                                                             style="height: 40px;">
-                                                            <option value="ADMIN">One</option>
-                                                            <option value="USER">Two</option>
-                                                        </select>
+                                                            <form:option value="">-- Select Role --</form:option>
+                                                            <form:option value="ADMIN">ADMIN</form:option>
+                                                            <form:option value="USER">USER</form:option>
+                                                        </form:select>
                                                     </div>
                                                     <div class="col-6 mb-3 mb-3">
                                                         <div class="input-group mb-3" style="height: 40px;">
                                                             <label for="">Avatar : </label>
                                                             <input type="file" class="form-control"
-                                                                accept=".png,.jpg,.jpeg" id="avatarFile">
+                                                                accept=".png,.jpg,.jpeg" id="avatarFile" name="newFile">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">

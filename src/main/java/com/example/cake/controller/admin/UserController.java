@@ -1,10 +1,14 @@
 package com.example.cake.controller.admin;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+
+import com.example.cake.domain.Role;
 import com.example.cake.domain.User;
 import com.example.cake.service.UpLoadFileService;
 import com.example.cake.service.UserService;
@@ -15,10 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 	public final UserService userService;
 	private final UpLoadFileService upLoadFileService;
+	private PasswordEncoder passwordEncoder;
 
-	public UserController(UserService userService, UpLoadFileService upLoadFileService) {
+	public UserController(UserService userService, UpLoadFileService upLoadFileService,
+			PasswordEncoder passwordEncoder) {
 		this.userService = userService;
 		this.upLoadFileService = upLoadFileService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@GetMapping("/")
@@ -63,24 +70,45 @@ public class UserController {
 			@RequestParam("hoidanitFile") MultipartFile file) {
 		String avatar = this.upLoadFileService.handlSaveUploadFile(file, "avatar");
 		// đoạn code dùng để lưu file ảnh
-
-		// userService.handleSaveUser(newUser);
+		String hashPassWord = this.passwordEncoder.encode(newUser.getPassword());
+		newUser.setPassword(hashPassWord);
+		newUser.setAvatar(avatar);
+		newUser.setRole(userService.getRoleByName(newUser.getRole().getName()));
+		userService.handleSaveUser(newUser);
 		return "redirect:/admin/user";
 	}
 
-	@RequestMapping("/admin/user/update/{id}")
+	@GetMapping("/admin/user/update/{id}")
 	public String getUpdateUsePage(Model model, @PathVariable long id) {
 		User currentUser = userService.getUserById(id);
 		model.addAttribute("newUser", currentUser);
+
 		return "admin/user/update";
 	}
 
-	@RequestMapping(value = "/admin/user/update", method = RequestMethod.POST)
-	public String updateUser(Model model, @ModelAttribute("newUser") User newUser) {
-		User currentUser = userService.getUserById(newUser.getId());
+	@PostMapping("/admin/user/update")
+	public String updateUser(Model model, @ModelAttribute("newUser") User newUser,
+			@RequestParam("newFile") MultipartFile file) {
+
+		// Lấy thông tin user hiện tại
+		User currentUser = this.userService.getUserById(newUser.getId());
+
+		// Cập nhật thông tin từ form
 		currentUser.setAddress(newUser.getAddress());
 		currentUser.setPhoneNumber(newUser.getPhoneNumber());
 		currentUser.setFullName(newUser.getFullName());
+		currentUser.setAvatar(this.upLoadFileService.handlSaveUploadFile(file, "avatar"));
+
+		// Kiểm tra và cập nhật Role
+		if (newUser.getRole() != null && newUser.getRole().getName() != null) {
+			Role role = userService.getRoleByName(newUser.getRole().getName());
+			System.out.println(role); // Kiểm tra xem Role có đúng không
+			currentUser.setRole(role);
+		} else {
+			System.out.println("Role is null");
+		}
+
+		// Lưu lại user đã cập nhật
 		userService.handleSaveUser(currentUser);
 		return "redirect:/admin/user";
 	}
