@@ -28,11 +28,6 @@ public class UserController {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
-
 	@RequestMapping("/admin/user")
 	public String getUsePage(Model model) {
 		List<User> users = userService.getAllUsers();
@@ -82,7 +77,8 @@ public class UserController {
 	public String getUpdateUsePage(Model model, @PathVariable long id) {
 		User currentUser = userService.getUserById(id);
 		model.addAttribute("newUser", currentUser);
-
+		String pathImage = upLoadFileService.getPathImg(currentUser);
+		model.addAttribute("pathImage", pathImage);
 		return "admin/user/update";
 	}
 

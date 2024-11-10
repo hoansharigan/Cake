@@ -80,8 +80,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <img style="max-height: 250px ; display: none;" src="" alt=""
-                                                            id="avatarPreview">
+                                                        <img style="width: 200px; height: 150px;" src="${pathImage}"
+                                                            alt="" id="avatarPreview">
                                                     </div>
                                                 </div>
                                                 <div class="text-center">
@@ -98,6 +98,28 @@
                         <jsp:include page="../layout/footer.jsp" />
                     </div>
                 </div>
+                <script>
+                    const fileInput = document.getElementById('avatarFile');
+                    const preview = document.getElementById('avatarPreview');
+
+                    fileInput.addEventListener('change', function () {
+                        const file = this.files[0];
+
+                        if (file) {
+                            const reader = new FileReader();
+
+                            reader.onload = function (event) {
+                                preview.src = event.target.result;
+                                preview.style.display = 'block';
+                            }
+
+                            reader.readAsDataURL(file);
+                        } else {
+                            preview.style.display = 'none';
+                            preview.src = '';
+                        }
+                    });
+                </script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
                 <script src="admin/js/scripts.js"></script>

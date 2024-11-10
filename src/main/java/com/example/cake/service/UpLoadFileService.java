@@ -8,14 +8,19 @@ import java.io.IOException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.cake.domain.User;
+import com.example.cake.repository.UserRepository;
+
 import jakarta.servlet.ServletContext;
 
 @Service
 public class UpLoadFileService {
     private final ServletContext servletContext;
+    private final UserRepository userRepository;
 
-    public UpLoadFileService(ServletContext servletContext) {
+    public UpLoadFileService(ServletContext servletContext, UserRepository userRepository) {
         this.servletContext = servletContext;
+        this.userRepository = userRepository;
     }
 
     public String handlSaveUploadFile(MultipartFile file, String targetFolder) {
@@ -45,5 +50,13 @@ public class UpLoadFileService {
             e.printStackTrace();
         }
         return finalName;
+    }
+
+    public String getPathImg(User user) {
+        String finalPath = "";
+        String image = user.getAvatar();
+        String rootPath = this.servletContext.getRealPath("/resources/images/avatar");
+        finalPath = rootPath + File.separator + image;
+        return finalPath;
     }
 }
