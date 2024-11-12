@@ -4,6 +4,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -12,6 +14,8 @@ import com.example.cake.domain.Role;
 import com.example.cake.domain.User;
 import com.example.cake.service.UpLoadFileService;
 import com.example.cake.service.UserService;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,9 +65,20 @@ public class UserController {
 
 	@PostMapping(value = "/admin/user/create")
 	public String createUser(Model model,
-			@ModelAttribute("newUser") User newUser,
-			@RequestParam("hoidanitFile") MultipartFile file) {
+			@ModelAttribute("newUser") @Valid User newUser,
+			BindingResult newUserBindingResult,
+			@RequestParam("hoidanitFile") MultipartFile file
+			) {
 		String avatar = this.upLoadFileService.handlSaveUploadFile(file, "avatar");
+		// validate
+		// in ra lỗi 
+		List<FieldError> errors = newUserBindingResult.getFieldErrors();
+		for (FieldError error : errors) {
+			System.out.println(error.getField() + " - " + error.getDefaultMessage());
+		}
+		if(newUserBindingResult.hasErrors()) {
+			return "admin/user/create";
+		}
 		// đoạn code dùng để lưu file ảnh
 		String hashPassWord = this.passwordEncoder.encode(newUser.getPassword());
 		newUser.setPassword(hashPassWord);
