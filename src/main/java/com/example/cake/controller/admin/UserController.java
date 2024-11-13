@@ -1,6 +1,5 @@
 package com.example.cake.controller.admin;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +38,7 @@ public class UserController {
 		return "admin/user/show";
 	}
 
-	@RequestMapping("/admin/user/{id}")
+	@GetMapping("/admin/user/{id}")
 	public String getUserDetailPage(Model model, @PathVariable long id) {
 		model.addAttribute("id", id);
 		User user = userService.getUserById(id);
@@ -67,16 +66,17 @@ public class UserController {
 	public String createUser(Model model,
 			@ModelAttribute("newUser") @Valid User newUser,
 			BindingResult newUserBindingResult,
-			@RequestParam("hoidanitFile") MultipartFile file
-			) {
+			@RequestParam("hoidanitFile") MultipartFile file) {
 		String avatar = this.upLoadFileService.handlSaveUploadFile(file, "avatar");
 		// validate
-		// in ra lỗi 
+		// in ra lỗi
 		List<FieldError> errors = newUserBindingResult.getFieldErrors();
 		for (FieldError error : errors) {
 			System.out.println(error.getField() + " - " + error.getDefaultMessage());
 		}
-		if(newUserBindingResult.hasErrors()) {
+		// nếu tạo không thành công có sẽ trả ra page create và không bị mất message lối
+		// nếu sài redirect sẽ bị lỗi
+		if (newUserBindingResult.hasErrors()) {
 			return "admin/user/create";
 		}
 		// đoạn code dùng để lưu file ảnh
@@ -92,8 +92,6 @@ public class UserController {
 	public String getUpdateUsePage(Model model, @PathVariable long id) {
 		User currentUser = userService.getUserById(id);
 		model.addAttribute("newUser", currentUser);
-		String pathImage = upLoadFileService.getPathImg(currentUser);
-		model.addAttribute("pathImage", pathImage);
 		return "admin/user/update";
 	}
 

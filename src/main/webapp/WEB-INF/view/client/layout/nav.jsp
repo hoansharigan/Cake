@@ -23,7 +23,7 @@
                     <div class="menu" style="margin-left: 30px; ">
                         <ul>
                             <li> <a href="/"> Trang chủ </a> </li>
-                            <li> <a href="client/product.html"> Sản phẩm </a> </li>
+                            <li> <a href="/products"> Sản phẩm </a> </li>
                             <li> <a href="client/blog.html"> Blog </a> </li>
                             <li> <a href="client/contact.html"> Liên hệ </a> </li>
                             <li>

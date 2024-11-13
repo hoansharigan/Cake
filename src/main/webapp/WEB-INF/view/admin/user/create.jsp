@@ -42,11 +42,17 @@
                                                         <div class="col-6 mb-3 mb-3">
                                                             <label for="exampleInputEmail1" class="form-label">Email
                                                                 address</label>
+                                                            <c:set var="errorEmail">
+                                                                <form:errors path="email" cssClass="invalid-feedback" />
+                                                            </c:set>
+
                                                             <form:input path="email" type="email"
-                                                                class="form-control is-invalid"
+                                                                class="form-control ${not empty errorEmail ?'is-invalid' :'' }"
                                                                 aria-describedby="emailHelp" />
-                                                            <form:errors path="email" cssClass="invalid-feedback" />
+
+                                                            ${errorEmail}
                                                         </div>
+
                                                         <div class="col-6 mb-3 mb-3">
                                                             <c:set var="errorPassword">
                                                                 <form:errors path="password"
@@ -54,11 +60,11 @@
                                                             </c:set>
 
                                                             <label for="exampleInputPassword1"
-                                                                class="form-label ${not empty errorPassword ?'is-invalid' :'' }">Password</label>
+                                                                class="form-label ">Password</label>
                                                             <form:input path="password" type="password"
-                                                                class="form-control" />
-                                                            ${errorPassword}
+                                                                class="form-control ${not empty errorPassword ?'is-invalid' :'' }" />
 
+                                                            ${errorPassword}
                                                         </div>
                                                         <div class="mb-3 col-6 mb-3">
                                                             <label for="exampleInputPassword1" class="form-label">Phone
@@ -67,10 +73,17 @@
                                                                 class="form-control" />
                                                         </div>
                                                         <div class="mb-3 col-6 mb-3">
+                                                            <c:set var="errorFullName">
+                                                                <form:errors path="fullName"
+                                                                    cssClass="invalid-feedback" />
+                                                            </c:set>
+
                                                             <label for="exampleInputPassword1" class="form-label">Full
                                                                 Name</label>
                                                             <form:input path="fullName" type="password"
-                                                                class="form-control" />
+                                                                class="form-control ${not empty errorFullName ?'is-invalid' :'' }" />
+
+                                                            ${errorFullName}
                                                         </div>
                                                         <div class="mb-3 col-12 mb-3">
                                                             <label for="exampleInputPassword1"

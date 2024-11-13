@@ -80,8 +80,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <img style="width: 200px; height: 150px;" src="${pathImage}"
-                                                            alt="" id="avatarPreview">
+                                                        <img style=" height: 200px; margin-bottom: 20px;"
+                                                            src="/images/avatar/${newUser.avatar}" alt=""
+                                                            id="avatarPreview">
                                                     </div>
                                                 </div>
                                                 <div class="text-center">

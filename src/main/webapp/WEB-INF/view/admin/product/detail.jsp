@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+        <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
             <!DOCTYPE html>
             <html lang="en">
 
@@ -14,6 +14,8 @@
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="/admin/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <link rel="stylesheet" href="css/main.css">
+
             </head>
 
             <body class="sb-nav-fixed">
@@ -30,42 +32,34 @@
                                 <div class="container my-5">
                                     <div class="row my-4 pb-3 border-bottom">
                                         <div class="col-12 d-flex justify-content-between ">
-                                            <h2 class="inline-block">Table Users</h2>
-                                            <a href="/admin/product/create" class="btn btn-success">Create Product</a>
+                                            <h2 class="inline-block">User Detail with ${id}</h2>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <table class="table table-hover border">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">Tên sản phẫm </th>
-                                                    <th scope="col">Giá</th>
-                                                    <th scope="col">Thương hiệu</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:forEach items="${Products}" var="item">
-                                                    <tr>
-                                                        <td>${item.id}</td>
-                                                        <td>${item.name}</td>
-                                                        <td>
-                                                            <fmt:formatNumber type="number" value="${item.price}" /> đ
-                                                        </td>
-                                                        <td>${item.factory}</td>
-                                                        <td>
-                                                            <a href="/admin/product/${item.id}"
-                                                                class="btn btn-success p-2">View</a>
-                                                            <a href="/admin/product/update/${item.id}"
-                                                                class="btn btn-warning p-2">Update</a>
-                                                            <a href="/admin/product/delete/${item.id}"
-                                                                class="btn btn-danger p-2">Delete</a>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </tbody>
-                                        </table>
+                                        <div class="col-12">
+                                            <div class="card" style="width: 18rem;">
+                                                <div class="card-header">
+                                                    User information
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <img src="/images/product/${product.image}" alt="">
+                                                    <li class="list-group-item"> address : ${product.id}</li>
+                                                    <li class="list-group-item"> address : ${product.name}</li>
+                                                    <li class="list-group-item"> phone : ${product.price}</li>
+                                                    <li class="list-group-item"> description: ${product.detailDesc}</li>
+                                                    <li class="list-group-item"> short : ${product.shortDesc}</li>
+                                                    <li class="list-group-item"> quantity : ${product.quantity}</li>
+                                                    <li class="list-group-item"> factory : ${product.factory}</li>
+                                                    <li class="list-group-item"> target : ${product.target}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="w-25 mt-2">
+                                                <a class="btn btn-success" href="/admin/user">
+                                                    back
+                                                </a>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

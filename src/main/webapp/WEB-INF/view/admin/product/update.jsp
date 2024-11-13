@@ -15,6 +15,7 @@
                 <link href="/admin/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
                 <link rel="stylesheet" href="css/main.css">
+
             </head>
 
             <body class="sb-nav-fixed">
@@ -31,70 +32,47 @@
                                 <div class="container">
                                     <div class="row ">
                                         <div class="col-6 m-auto">
-                                            <form:form enctype="multipart/form-data" class="" method="post"
-                                                action="/admin/product/create" modelAttribute="newProduct">
-                                                <h2 class="border-bottom mb-4">Create Product</h2>
+                                            <form:form class="" method="post" action="/admin/product/update"
+                                                modelAttribute="product" enctype="multipart/form-data">
+                                                <h2 class="border-bottom mb-4 pb-3">Update User</h2>
                                                 <div class="row">
-                                                    <div class="col-6 mb-3 mb-4">
-                                                        <c:set var="errorName">
-                                                            <form:errors path="name" cssClass="invalid-feedback" />
-                                                        </c:set>
-
-                                                        <label for="exampleInputEmail1" class="form-label">Name</label>
-
-                                                        <form:input path="name" type="text"
-                                                            class="form-control ${not empty errorName ?'is-invalid' :''}"
+                                                    <div class="mb-3" style="display: none;">
+                                                        <label class="form-label">Id:</label>
+                                                        <form:input type="text" class="form-control" path="id" />
+                                                    </div>
+                                                    <div class="col-6 mb-3 mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">Name </label>
+                                                        <form:input path="name" type="text" class="form-control"
                                                             aria-describedby="emailHelp" />
-                                                        ${errorName}
                                                     </div>
-                                                    <div class="col-6 mb-3 mb-4">
-                                                        <c:set var="errorPrice">
-                                                            <form:errors path="price" cssClass="invalid-feedback" />
-                                                        </c:set>
 
+                                                    <div class="mb-3 col-6 mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">price
+                                                        </label>
+                                                        <form:input path="price" type="text" class="form-control" />
+                                                    </div>
+                                                    <div class="mb-3 col-6 mb-3">
                                                         <label for="exampleInputPassword1"
-                                                            class="form-label">Price</label>
-                                                        <form:input path="price" type="number"
-                                                            class="form-control ${not empty errorPrice ?'is-invalid' :''}" />
-                                                        ${errorPrice}
+                                                            class="form-label">description</label>
+                                                        <form:input path="detailDesc" type="text"
+                                                            class="form-control" />
                                                     </div>
-                                                    <div class="mb-3 col-12 mb-4">
-                                                        <c:set var="errorDetailDesc">
-                                                            <form:errors path="detailDesc"
-                                                                cssClass="invalid-feedback" />
-                                                        </c:set>
-
-                                                        <label for="exampleInputPassword1" class="form-label">
-                                                            Detail description
-                                                        </label>
-
-                                                        <form:textarea style="width: 100%;" name="" id=""
-                                                            path="detailDesc"
-                                                            class="form-control ${not empty errorDetailDesc ?'is-invalid' :''}" />
-                                                        ${errorDetailDesc}
-                                                    </div>
-                                                    <div class="mb-3 col-6 mb-4">
-                                                        <c:set var="errorShortDes">
-                                                            <form:errors path="shortDesc" cssClass="invalid-feedback" />
-                                                        </c:set>
-                                                        <label for="exampleInputPassword1" class="form-label">
-                                                            Short description
-                                                        </label>
-                                                        <form:input path="shortDesc" type="text"
-                                                            class="form-control  ${not empty errorShortDes ?'is-invalid' :''}" />
-                                                        ${errorShortDes}
+                                                    <div class="mb-3 col-12 mb-3">
+                                                        <label for="exampleInputPassword1"
+                                                            class="form-label">Short</label>
+                                                        <form:input path="shortDesc" type="text" class="form-control" />
                                                     </div>
 
-                                                    <div class="mb-3 col-6 mb-4">
-                                                        <c:set var="errorQuantity">
-                                                            <form:errors path="quantity" cssClass="invalid-feedback" />
-                                                        </c:set>
-                                                        <label for="exampleInputPassword1" class="form-label">
-                                                            Quality
-                                                        </label>
-                                                        <form:input path="quantity" type="number"
-                                                            class="form-control ${not empty errorQuantity ?'is-invalid' :''}" />
-                                                        ${errorQuantity}
+                                                    <div class="mb-3 col-12 mb-3">
+                                                        <label for="exampleInputPassword1"
+                                                            class="form-label">quantity</label>
+                                                        <form:input path="quantity" type="text" class="form-control" />
+                                                    </div>
+
+                                                    <div class="mb-3 col-12 mb-3">
+                                                        <label for="exampleInputPassword1"
+                                                            class="form-label">sold</label>
+                                                        <form:input path="sold" type="text" class="form-control" />
                                                     </div>
 
                                                     <div class="col-6 mb-3 mb-4">
@@ -109,32 +87,34 @@
                                                     <div class="col-6 mb-3 mb-4">
                                                         <label for="">factory : </label>
                                                         <form:select class="form-select" path="target">
-                                                            <form:option value="Qua_Tang">Làm Quà Tặng</form:option>
-                                                            <form:option value="Trang_Chi">Trang Trí và Tạo Điểm Nhấn
-                                                                Cho
+                                                            <form:option value="Laduree">Làm Quà Tặng</form:option>
+                                                            <form:option value="Pierre">Trang Trí và Tạo Điểm Nhấn Cho
                                                                 Sự Kiện </form:option>
-                                                            <form:option value="Trang_Mien">Làm Món Tráng Miệng
+                                                            <form:option value="Godiva">Làm Món Tráng Miệng
                                                             </form:option>
-                                                            <form:option value="Sinh_Nhat">Sinh Nhật</form:option>
-                                                            <form:option value="Dam_Cuoi">Đám Cưới</form:option>
+                                                            <form:option value="Magnolia">Sinh Nhật</form:option>
+                                                            <form:option value="Magnolia">Đám Cưới</form:option>
                                                         </form:select>
                                                     </div>
-                                                    <div class="col-6 mb-3 mb-4">
+
+
+
+                                                    <div class="col-6 mb-3 mb-3">
                                                         <div class="input-group mb-3" style="height: 40px;">
                                                             <label for="">Avatar : </label>
                                                             <input type="file" class="form-control"
-                                                                accept=".png,.jpg,.jpeg,.webp" id="avatarFile"
-                                                                name="hoidanitFile" />
+                                                                accept=".png,.jpg,.jpeg" id="avatarFile" name="newFile">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <img style="max-height: 250px ; display: none; margin-bottom: 20px;"
-                                                            src="" alt="" id="avatarPreview">
+                                                        <img style=" height: 200px; margin-bottom: 20px;"
+                                                            src="/images/product/${product.image}" alt=""
+                                                            id="avatarPreview">
                                                     </div>
                                                 </div>
                                                 <div class="text-center">
-                                                    <button type="submit" class="btn btn-primary w-25 text-center">
-                                                        Create
+                                                    <button type="submit" class="btn btn-warning w-25 text-center">
+                                                        Update</button>
                                                     </button>
                                                 </div>
                                             </form:form>
@@ -146,7 +126,6 @@
                         <jsp:include page="../layout/footer.jsp" />
                     </div>
                 </div>
-
                 <script>
                     const fileInput = document.getElementById('avatarFile');
                     const preview = document.getElementById('avatarPreview');
@@ -169,7 +148,6 @@
                         }
                     });
                 </script>
-
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
                 <script src="admin/js/scripts.js"></script>
