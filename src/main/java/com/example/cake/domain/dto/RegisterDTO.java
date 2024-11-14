@@ -1,13 +1,21 @@
 package com.example.cake.domain.dto;
 
-import java.beans.JavaBean;
+import com.example.cake.service.validator.RegisterChecked;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 // nó chỉ đơn giản là 1 object để lưu thông tin 
-@JavaBean
+@RegisterChecked
 public class RegisterDTO {
+    @Size(min = 3, message = "First phải tối thiểu 3 kí tự")
     private String firstName;
     private String lastName;
+
+    @Email(message = "Email không đúng định dạng", regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
     private String email;
+
+    @Size(min = 3, message = "First phải tối thiểu 3 kí tự")
     private String password;
     private String confirmPassword;
 

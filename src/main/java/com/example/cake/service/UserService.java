@@ -57,4 +57,8 @@ public class UserService {
         user.setPassword(dto.getPassword());
         return user;
     }
+
+    public boolean checkEmailExist(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }
